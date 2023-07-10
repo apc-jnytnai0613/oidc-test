@@ -35,6 +35,9 @@ jobs:
       
       - name: Build Image & Push
         run: |
+            echo ${{ github.sha }}
+            echo ${{ env.IMG }}
+            echo ${{ secrets.ACR_SERVER }}/${{ env.IMG }}:${{ github.sha }}
             docker build . -t ${{ secrets.ACR_SERVER }}/${{ env.IMG }}:${{ github.sha }}
             docker push ${{ secrets.ACR_SERVER }}/${{ env.IMG }}:${{ github.sha }}
       
