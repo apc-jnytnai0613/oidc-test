@@ -36,10 +36,10 @@ jobs:
       - name: Build Image & Push
         run: |
             echo ${{ github.sha }}
-            echo ${{ IMG }}
-            echo ${{ secrets.ACR_SERVER }}/${{ env.IMG }}:${{ github.sha }}
-            docker build . -t ${{ secrets.ACR_SERVER }}/${{ env.IMG }}:${{ github.sha }}
-            docker push ${{ secrets.ACR_SERVER }}/${{ env.IMG }}:${{ github.sha }}
+            echo ${{ vars.IMG }}
+            echo ${{ secrets.ACR_SERVER }}/${{ vars.IMG }}:${{ github.sha }}
+            docker build . -t ${{ secrets.ACR_SERVER }}/${{ vars.IMG }}:${{ github.sha }}
+            docker push ${{ secrets.ACR_SERVER }}/${{ vars.IMG }}:${{ github.sha }}
       
       - uses: azure/webapps-deploy@v2
         with:
