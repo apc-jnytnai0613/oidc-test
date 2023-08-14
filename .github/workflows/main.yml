@@ -18,27 +18,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
       - name: Login in to Azure
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      
       - name: Login in to ACR
         uses: azure/docker-login@v1
         with:
           login-server: taniaitest.azurecr.io
           username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
-      
+          password: ${{ secrets.ACR_PASSWORD }}  
       - name: Build Image & Push
         uses: docker/build-push-action@v4
         with:
           push: true
           tags: ${{ secrets.ACR_SERVER }}/${{ vars.IMG }}:${{ github.sha }}
-      
       - uses: azure/webapps-deploy@v2
         with:
           app-name: 'taniai-oidc-test'
