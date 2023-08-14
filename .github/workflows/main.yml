@@ -34,9 +34,10 @@ jobs:
           password: ${{ secrets.ACR_PASSWORD }}
       
       - name: Build Image & Push
-        run: |
-            docker build . -t ${{ secrets.ACR_SERVER }}/${{ vars.IMG }}:${{ github.sha }}
-            docker push ${{ secrets.ACR_SERVER }}/${{ vars.IMG }}:${{ github.sha }}
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ${{ secrets.ACR_SERVER }}/${{ vars.IMG }}:${{ github.sha }}
       
       - uses: azure/webapps-deploy@v2
         with:
